@@ -21,4 +21,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/admin/dashboard', 'AdminController@index');
+// Route::get('/admin/dashboard', 'AdminController@index');
+Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');
