@@ -1927,6 +1927,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     userId: {
@@ -1934,14 +1940,28 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
+  data: function data() {
+    return {
+      successful: false,
+      errors: []
+    };
+  },
   methods: {
     create: function create() {
+      var _this = this;
+
       var formData = new FormData();
       formData.append('title', this.$refs.title.value);
       formData.append('body', this.$refs.body.value);
       formData.append('user_id', this.userId);
       axios.post('/api/posts', formData).then(function (response) {
         console.log(response.data);
+        _this.errors = [0];
+        _this.successful = true;
+      })["catch"](function (error) {
+        console.log(error.response.data);
+        _this.successful = false;
+        _this.errors = error.response.data.errors;
       });
       this.$refs.title.value = '';
       this.$refs.body.value = '';
@@ -37529,9 +37549,23 @@ var render = function() {
   return _c("div", { staticClass: "_container" }, [
     _c("div", { staticClass: "admin-page-title" }, [_vm._v("Create New Post")]),
     _vm._v(" "),
+    _vm.successful
+      ? _c("span", { staticClass: "badge badge-success" }, [
+          _c("h4", [_vm._v("Save Successfully!")]),
+          _vm._v(" "),
+          _c("small", [_vm._v("(Post baru berhasil dibuat dan dipublikasi!)")])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "_wrap-form" }, [
       _c("form", { staticClass: "_bg-form" }, [
         _c("div", { staticClass: "form-group" }, [
+          _vm.errors.title
+            ? _c("span", { staticClass: "badge badge-danger" }, [
+                _vm._v(_vm._s(_vm.errors.title[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("input", {
             ref: "title",
             staticClass: "form-control",
@@ -37540,6 +37574,12 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _vm.errors.body
+            ? _c("span", { staticClass: "badge badge-danger" }, [
+                _vm._v(_vm._s(_vm.errors.body[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("textarea", {
             ref: "body",
             staticClass: "form-control",
