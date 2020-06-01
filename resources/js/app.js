@@ -9,6 +9,9 @@ Vue.use(VueRouter)
 
 import WelcomeAdmin from './components/WelcomeAdmin';
 
+import Menuadmin from './components/Menuadmin';
+
+
 const router = new VueRouter({
     routes: [
       {
@@ -22,5 +25,8 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
+    components: {
+        Menuadmin
+    },
     router
 });
