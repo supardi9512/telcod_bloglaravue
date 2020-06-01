@@ -22,7 +22,8 @@ const router = new VueRouter({
       {
         path: '/admin/createpost',
         name: 'createpost',
-        component: CreatePost
+        component: CreatePost,
+        props: true
       }
     ],
     mode : 'history' 

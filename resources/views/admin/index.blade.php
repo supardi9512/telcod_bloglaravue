@@ -26,7 +26,7 @@
         </div>
 
         <!-- Sidebar Menu -->
-        <Menuadmin></Menuadmin>
+        <Menuadmin :user-id="@json(auth()->user()->id)"></Menuadmin>
            
     </div>
   <div class="main-content">
@@ -47,7 +47,7 @@
     </div>
       <div class="main-section"> 
         
-        <router-view></router-view>
+        <router-view :user-id="@json(auth()->user()->id)"></router-view>
 
       </div>
      </div>

@@ -6,9 +6,17 @@
                     <router-link :to="{ name: 'dashboard'}"><i class="fa fa-home"></i> <span class="text">DASHBOARD</span></router-link>
                 </li>
                 <li>
-                    <router-link :to="{ name: 'createpost'}"><i class="fa fa-pencil-square-o"></i> <span class="text">NEW POST</span></router-link>
+                    <router-link :to="{ name: 'createpost', params: {userId}}"><i class="fa fa-pencil-square-o"></i> <span class="text">NEW POST</span></router-link>
                 </li>
             </ul>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        userId: {}
+    }
+}
+</script>
