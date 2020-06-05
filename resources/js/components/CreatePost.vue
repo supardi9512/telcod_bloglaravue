@@ -1,10 +1,10 @@
 <template>
   <div class="_container">
     <div class="admin-page-title">Create New Post</div>
-      <span v-if="successful" class="badge badge-success">
-        <h4>Save Successfully!</h4>
-        <small>(Post baru berhasil dibuat dan dipublikasi!)</small>
-      </span>
+      <span v-if="successful" class="label label-success"> 
+        <h4>Save Successfully!</h4> 
+        <small>(Post baru berhasil dibuat dan dipublikasi!)</small> 
+      </span> 
       <div class="_wrap-form">
         <form class="_bg-form">    
           <div class="form-group">
@@ -33,7 +33,7 @@ export default {
     },
     data() {
       return {
-        successful: false,
+        successful: false, 
         errors: []
       }
     },
@@ -52,7 +52,7 @@ export default {
                 })
                 .catch(error => {
                   console.log(error.response.data);
-                  this.successful = false;
+                  this.successful = false; 
                   this.errors = error.response.data.errors;
                 });
             
@@ -62,3 +62,17 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+  .label-success {
+    background-color: #4fca6b;
+    display: inline-block;
+    width: 100%;
+    color: #fff;
+    padding: 8px 15px;
+  }
+
+  .label-success h4 {
+    margin-bottom: 0;
+  }
+</style>
