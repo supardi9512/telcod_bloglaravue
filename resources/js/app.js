@@ -11,6 +11,7 @@ import WelcomeAdmin from './components/WelcomeAdmin'
 import Menuadmin from './components/Menuadmin'
 import CreatePost from './components/CreatePost'
 import AllPosts from './components/AllPosts'
+import EditPost from './components/EditPost'
 
 const router = new VueRouter({
     routes: [
@@ -29,6 +30,12 @@ const router = new VueRouter({
         path: '/admin/allposts',
         name: 'allposts',
         component: AllPosts,
+        props: true
+      },
+      {
+        path: '/admin/editpost/:postId/edit',
+        name: 'editpost',
+        component: EditPost,
         props: true
       }
     ],

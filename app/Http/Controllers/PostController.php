@@ -90,7 +90,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Post::findOrFail($id);
     }
 
     /**
@@ -102,7 +102,31 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'category_id' => 'required',
+            'body' => 'required',
+        ]);
+
+        $post = Post::find($id);
+        $post->title = $request->title;
+        $post->body = $request->body;
+
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = Str::slug($request->title, '-').'.'.$image->getClientOriginalExtension();
+            $location = public_path('/images/');
+            $image->move($location, $name);
+            $oldImage = $post->image;
+            \Storage::delete($oldImage);
+            $post->image = $name;
+        }
+
+        $post->category_id = $request->category_id;
+
+        $post->save();
+
+        return $post;
     }
 
     /**

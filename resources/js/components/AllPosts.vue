@@ -26,7 +26,9 @@
                                 <span v-if="post.category">{{ post.category.name }}</span>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-block btn-primary">Edit</button>
+                                <router-link :to="{ name: 'editpost', params: {postId: post.id} }">
+                                    <button type="button" class="btn btn-block btn-primary">Edit</button>
+                                </router-link>
                                 <button type="button" @click="deletePost(post.id)" class="btn btn-block btn-danger">Delete</button>
                             </td>
                         </tr>
