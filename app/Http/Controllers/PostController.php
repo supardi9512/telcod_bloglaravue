@@ -6,6 +6,7 @@ use App\Post;
 use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -112,6 +113,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        Storage::delete($post->image);
+        $post->delete();
+
+        return response()->json($post);
     }
 }

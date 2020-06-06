@@ -2,6 +2,10 @@
     <div>
         <div class="_container">
             <div class="admin-page-title">All Posts</div>
+            <span v-if="successful" class="label label-success"> 
+                <h4>Deleted!</h4> 
+                <small>(Post berhasil dihapus!)</small> 
+            </span> 
             <div class="h_wrap">
                 <table class="table table-bordered">
                     <thead class="thead-dark">
@@ -23,7 +27,7 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-block btn-primary">Edit</button>
-                                <button type="button" class="btn btn-block btn-danger">Delete</button>
+                                <button type="button" @click="deletePost(post.id)" class="btn btn-block btn-danger">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -37,7 +41,8 @@
 export default {
     data: function() {
         return {
-            posts: []
+            posts: [],
+            successful: false
         }
     },
     created: function() {
@@ -50,6 +55,14 @@ export default {
                     console.log(response.data);
                     this.posts = response.data.data;
                 });
+        },
+        deletePost(id) {
+            axios.delete('/api/posts/' + id)
+                .then(response => {
+                    console.log('deleted!');
+                    this.getPosts();
+                    this.successful = true;
+                })
         }
     }
 }
@@ -62,5 +75,18 @@ export default {
 
     .table-bordered {
         background-color: #ffffff;
+    }
+
+    .label-success {
+        background-color: #4fca6b;
+        display: inline-block;
+        width: 100%;
+        color: #fff;
+        padding: 8px 15px;
+        margin-bottom: 8px;
+    }
+
+    .label-success h4 {
+        margin-bottom: 0;
     }
 </style>

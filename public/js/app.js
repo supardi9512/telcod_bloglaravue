@@ -1943,10 +1943,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      posts: []
+      posts: [],
+      successful: false
     };
   },
   created: function created() {
@@ -1959,6 +1964,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/posts').then(function (response) {
         console.log(response.data);
         _this.posts = response.data.data;
+      });
+    },
+    deletePost: function deletePost(id) {
+      var _this2 = this;
+
+      axios["delete"]('/api/posts/' + id).then(function (response) {
+        console.log('deleted!');
+
+        _this2.getPosts();
+
+        _this2.successful = true;
       });
     }
   }
@@ -6547,7 +6563,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntbody img[data-v-585349c6] {\n    width: 100%;\n}\n.table-bordered[data-v-585349c6] {\n    background-color: #ffffff;\n}\n", ""]);
+exports.push([module.i, "\ntbody img[data-v-585349c6] {\n    width: 100%;\n}\n.table-bordered[data-v-585349c6] {\n    background-color: #ffffff;\n}\n.label-success[data-v-585349c6] {\n    background-color: #4fca6b;\n    display: inline-block;\n    width: 100%;\n    color: #fff;\n    padding: 8px 15px;\n    margin-bottom: 8px;\n}\n.label-success h4[data-v-585349c6] {\n    margin-bottom: 0;\n}\n", ""]);
 
 // exports
 
@@ -38346,6 +38362,14 @@ var render = function() {
     _c("div", { staticClass: "_container" }, [
       _c("div", { staticClass: "admin-page-title" }, [_vm._v("All Posts")]),
       _vm._v(" "),
+      _vm.successful
+        ? _c("span", { staticClass: "label label-success" }, [
+            _c("h4", [_vm._v("Deleted!")]),
+            _vm._v(" "),
+            _c("small", [_vm._v("(Post berhasil dihapus!)")])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("div", { staticClass: "h_wrap" }, [
         _c(
           "table",
@@ -38376,7 +38400,30 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._m(1, true)
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-block btn-primary",
+                        attrs: { type: "button" }
+                      },
+                      [_vm._v("Edit")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-block btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deletePost(post.id)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ])
                 ])
               ])
             })
@@ -38402,24 +38449,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "button",
-        { staticClass: "btn btn-block btn-primary", attrs: { type: "button" } },
-        [_vm._v("Edit")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-block btn-danger", attrs: { type: "button" } },
-        [_vm._v("Delete")]
-      )
     ])
   }
 ]
