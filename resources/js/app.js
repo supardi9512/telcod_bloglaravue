@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 import WelcomeAdmin from './components/WelcomeAdmin'
 import Menuadmin from './components/Menuadmin'
 import CreatePost from './components/CreatePost'
-
+import AllPosts from './components/AllPosts'
 
 const router = new VueRouter({
     routes: [
@@ -23,6 +23,12 @@ const router = new VueRouter({
         path: '/admin/createpost',
         name: 'createpost',
         component: CreatePost,
+        props: true
+      },
+      {
+        path: '/admin/allposts',
+        name: 'allposts',
+        component: AllPosts,
         props: true
       }
     ],

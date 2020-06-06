@@ -21,7 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::orderBy('id', 'asc')->with('category')->latest()->paginate(3);
+        return response()->json($posts);
     }
 
     /**
