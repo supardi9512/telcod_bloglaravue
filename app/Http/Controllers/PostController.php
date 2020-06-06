@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function getCategories()
+    {
+        return Category::latest()->get();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,13 +44,25 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'body' => 'required'
+            'category_id' => 'required',
+            'body' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg'
         ]);
 
         $post = new Post;
         $post->user_id = $request->user_id;
         $post->title = $request->title;
         $post->body = $request->body;
+
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = Str::slug($request->title, '-').'.'.$image->getClientOriginalExtension();
+            $location = public_path('/images');
+            $image->move($location, $name);
+            $post->image = $name;
+        }
+
+        $post->category_id = $request->category_id;
 
         $post->save();
 

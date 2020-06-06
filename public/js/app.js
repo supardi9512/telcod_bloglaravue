@@ -1933,6 +1933,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     userId: {
@@ -1943,8 +1959,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       successful: false,
-      errors: []
+      errors: [],
+      categories: []
     };
+  },
+  created: function created() {
+    this.getCategories();
   },
   methods: {
     create: function create() {
@@ -1954,9 +1974,11 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('title', this.$refs.title.value);
       formData.append('body', this.$refs.body.value);
       formData.append('user_id', this.userId);
+      formData.append('image', this.$refs.image.files[0]);
+      formData.append('category_id', this.$refs.category_id.value);
       axios.post('/api/posts', formData).then(function (response) {
         console.log(response.data);
-        _this.errors = [0];
+        _this.errors = false;
         _this.successful = true;
       })["catch"](function (error) {
         console.log(error.response.data);
@@ -1965,6 +1987,16 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.$refs.title.value = '';
       this.$refs.body.value = '';
+      this.$refs.image.value = '';
+      this.$refs.category_id.value = '';
+    },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      axios.get('/api/getCategories').then(function (response) {
+        console.log(response.data);
+        _this2.categories = response.data;
+      });
     }
   }
 });
@@ -6445,7 +6477,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.label-success[data-v-20838332] {\n  background-color: #4fca6b;\n  display: inline-block;\n  width: 100%;\n  color: #fff;\n  padding: 8px 15px;\n}\n.label-success h4[data-v-20838332] {\n  margin-bottom: 0;\n}\n", ""]);
+exports.push([module.i, "\n.label-success[data-v-20838332] {\n  background-color: #4fca6b;\n  display: inline-block;\n  width: 100%;\n  color: #fff;\n  padding: 8px 15px;\n  margin-bottom: 8px;\n}\n.label-success h4[data-v-20838332] {\n  margin-bottom: 0;\n}\n", ""]);
 
 // exports
 
@@ -38219,6 +38251,39 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _vm.errors.category_id
+            ? _c("span", { staticClass: "badge badge-danger" }, [
+                _vm._v(_vm._s(_vm.errors.category_id[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "select",
+            { ref: "category_id", staticClass: "form-control" },
+            [
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("Select Category")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.categories, function(category) {
+                return _c(
+                  "option",
+                  { key: category.id, domProps: { value: category.id } },
+                  [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(category.name) +
+                        "\n            "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
           _vm.errors.body
             ? _c("span", { staticClass: "badge badge-danger" }, [
                 _vm._v(_vm._s(_vm.errors.body[0]))
@@ -38230,6 +38295,28 @@ var render = function() {
             staticClass: "form-control",
             attrs: { id: "body", placeholder: "Body", rows: "8" }
           })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _vm.errors.image
+            ? _c("span", { staticClass: "badge badge-danger" }, [
+                _vm._v(_vm._s(_vm.errors.image[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "custom-file mb-3" }, [
+            _c("input", {
+              ref: "image",
+              staticClass: "custom-file-input",
+              attrs: { type: "file", id: "image", required: "" }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "custom-file-label", attrs: { for: "image" } },
+              [_vm._v("Choose file")]
+            )
+          ])
         ]),
         _vm._v(" "),
         _c(

@@ -12,8 +12,24 @@
             <input type="title" class="form-control" ref="title" id="title" placeholder="Title">
           </div> 
           <div class="form-group">
+            <span v-if="errors.category_id" class="badge badge-danger">{{ errors.category_id[0] }}</span>     
+            <select class="form-control" ref="category_id">
+              <option value="">Select Category</option>
+              <option v-for="category in categories" :key="category.id" :value="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
             <span v-if="errors.body" class="badge badge-danger">{{ errors.body[0] }}</span>     
             <textarea class="form-control" ref="body" id="body" placeholder="Body" rows="8"></textarea>
+          </div>
+          <div class="form-group">
+            <span v-if="errors.image" class="badge badge-danger">{{ errors.image[0] }}</span>     
+            <div class="custom-file mb-3">
+              <input type="file" ref="image" id="image" class="custom-file-input" required>
+              <label for="image" class="custom-file-label">Choose file</label>
+            </div>
           </div>
           <button type="submit" @click.prevent="create" class="btn btn-primary">
             Submit
@@ -34,8 +50,12 @@ export default {
     data() {
       return {
         successful: false, 
-        errors: []
+        errors: [],
+        categories: []
       }
+    },
+    created:function() {
+      this.getCategories();
     },
     methods: {
         create() {
@@ -43,11 +63,13 @@ export default {
             formData.append('title', this.$refs.title.value);
             formData.append('body', this.$refs.body.value);
             formData.append('user_id', this.userId);
+            formData.append('image', this.$refs.image.files[0]);
+            formData.append('category_id', this.$refs.category_id.value);
 
             axios.post('/api/posts', formData)
                 .then(response => {
                     console.log(response.data);
-                    this.errors = [0];
+                    this.errors = false;
                     this.successful = true
                 })
                 .catch(error => {
@@ -58,6 +80,15 @@ export default {
             
             this.$refs.title.value = '';
             this.$refs.body.value = '';
+            this.$refs.image.value = '';
+            this.$refs.category_id.value = '';
+        },
+        getCategories() {
+          axios.get('/api/getCategories')
+            .then(response => {
+              console.log(response.data);
+              this.categories = response.data;
+            });
         }
     }
 }
@@ -70,6 +101,7 @@ export default {
     width: 100%;
     color: #fff;
     padding: 8px 15px;
+    margin-bottom: 8px;
   }
 
   .label-success h4 {
