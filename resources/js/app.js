@@ -12,6 +12,7 @@ import Menuadmin from './components/Menuadmin'
 import CreatePost from './components/CreatePost'
 import AllPosts from './components/AllPosts'
 import EditPost from './components/EditPost'
+import AllCategories from './components/AllCategories'
 
 const router = new VueRouter({
     routes: [
@@ -37,7 +38,13 @@ const router = new VueRouter({
         name: 'editpost',
         component: EditPost,
         props: true
-      }
+      },
+      {
+        path: '/admin/allcategories',
+        name: 'allcategories',
+        component: AllCategories,
+        props: true
+      },
     ],
     mode : 'history' 
 })
