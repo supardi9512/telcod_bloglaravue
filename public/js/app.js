@@ -1937,10 +1937,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categories: []
+      categories: [],
+      successful: false
     };
   },
   created: function created() {
@@ -1956,6 +1961,19 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error.response.data);
       });
+    },
+    deleteCategory: function deleteCategory(id) {
+      var _this2 = this;
+
+      if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+        axios["delete"]('/api/categories/' + id).then(function (response) {
+          console.log('deleted!');
+
+          _this2.getCategories();
+
+          _this2.successful = true;
+        });
+      }
     }
   }
 });
@@ -2034,13 +2052,15 @@ __webpack_require__.r(__webpack_exports__);
     deletePost: function deletePost(id) {
       var _this2 = this;
 
-      axios["delete"]('/api/posts/' + id).then(function (response) {
-        console.log('deleted!');
+      if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+        axios["delete"]('/api/posts/' + id).then(function (response) {
+          console.log('deleted!');
 
-        _this2.getPosts();
+          _this2.getPosts();
 
-        _this2.successful = true;
-      });
+          _this2.successful = true;
+        });
+      }
     }
   }
 });
@@ -6838,7 +6858,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.table-bordered[data-v-f561687c] {\n    background-color: #ffffff;\n}\n", ""]);
+exports.push([module.i, "\n.table-bordered[data-v-f561687c] {\n    background-color: #ffffff;\n}\ntbody img[data-v-f561687c] {\n    width: 100%;\n}\n.table-bordered[data-v-f561687c] {\n    background-color: #ffffff;\n}\n.label-success[data-v-f561687c] {\n    background-color: #dc3545;\n    display: inline-block;\n    width: 100%;\n    color: #fff;\n    padding: 8px 15px;\n    margin-bottom: 8px;\n}\n.label-success h4[data-v-f561687c] {\n    margin-bottom: 0;\n}\n", ""]);
 
 // exports
 
@@ -6857,7 +6877,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntbody img[data-v-585349c6] {\n    width: 100%;\n}\n.table-bordered[data-v-585349c6] {\n    background-color: #ffffff;\n}\n.label-success[data-v-585349c6] {\n    background-color: #4fca6b;\n    display: inline-block;\n    width: 100%;\n    color: #fff;\n    padding: 8px 15px;\n    margin-bottom: 8px;\n}\n.label-success h4[data-v-585349c6] {\n    margin-bottom: 0;\n}\n", ""]);
+exports.push([module.i, "\ntbody img[data-v-585349c6] {\n    width: 100%;\n}\n.table-bordered[data-v-585349c6] {\n    background-color: #ffffff;\n}\n.label-success[data-v-585349c6] {\n    background-color: #dc3545;\n    display: inline-block;\n    width: 100%;\n    color: #fff;\n    padding: 8px 15px;\n    margin-bottom: 8px;\n}\n.label-success h4[data-v-585349c6] {\n    margin-bottom: 0;\n}\n", ""]);
 
 // exports
 
@@ -38786,6 +38806,14 @@ var render = function() {
         _vm._v("All Categories")
       ]),
       _vm._v(" "),
+      _vm.successful
+        ? _c("span", { staticClass: "label label-success" }, [
+            _c("h4", [_vm._v("Deleted!")]),
+            _vm._v(" "),
+            _c("small", [_vm._v("(Kategori berhasil dihapus!)")])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("div", { staticClass: "h_wrap" }, [
         _c(
           "table",
@@ -38830,7 +38858,12 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-danger",
-                          attrs: { type: "button" }
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteCategory(category.id)
+                            }
+                          }
                         },
                         [_vm._v("Delete")]
                       )

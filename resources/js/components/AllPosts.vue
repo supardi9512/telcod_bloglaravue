@@ -59,12 +59,14 @@ export default {
                 });
         },
         deletePost(id) {
-            axios.delete('/api/posts/' + id)
-                .then(response => {
-                    console.log('deleted!');
-                    this.getPosts();
-                    this.successful = true;
-                })
+            if(confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                axios.delete('/api/posts/' + id)
+                    .then(response => {
+                        console.log('deleted!');
+                        this.getPosts();
+                        this.successful = true;
+                    })
+            }
         }
     }
 }
@@ -80,7 +82,7 @@ export default {
     }
 
     .label-success {
-        background-color: #4fca6b;
+        background-color: #dc3545;
         display: inline-block;
         width: 100%;
         color: #fff;

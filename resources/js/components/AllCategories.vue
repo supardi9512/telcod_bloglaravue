@@ -2,6 +2,10 @@
     <div>
         <div class="_container">
             <div class="admin-page-title">All Categories</div>
+            <span v-if="successful" class="label label-success"> 
+                <h4>Deleted!</h4> 
+                <small>(Kategori berhasil dihapus!)</small> 
+            </span> 
             <div class="h_wrap">
                 <table class="table table-bordered">
                     <thead class="thead-dark">
@@ -17,7 +21,7 @@
                                 <router-link :to="{name: 'editcategory', params: {categoryId: category.id}}">
                                     <button type="button" class="btn btn-primary">Edit</button>
                                 </router-link>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button type="button" @click="deleteCategory(category.id)" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -31,7 +35,8 @@
 export default {
     data() {
         return {
-            categories: []
+            categories: [],
+            successful: false
         }
     },
     created() {
@@ -47,6 +52,16 @@ export default {
                 .catch(error => {
                     console.log(error.response.data);
                 });
+        },
+        deleteCategory(id) {
+            if(confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                axios.delete('/api/categories/' + id)
+                    .then(response => {
+                        console.log('deleted!');
+                        this.getCategories();
+                        this.successful = true;
+                    })
+            }
         }
     }
 }
@@ -55,5 +70,26 @@ export default {
 <style scoped>
     .table-bordered {
         background-color: #ffffff;
+    }
+
+    tbody img {
+        width: 100%;
+    }
+
+    .table-bordered {
+        background-color: #ffffff;
+    }
+
+    .label-success {
+        background-color: #dc3545;
+        display: inline-block;
+        width: 100%;
+        color: #fff;
+        padding: 8px 15px;
+        margin-bottom: 8px;
+    }
+
+    .label-success h4 {
+        margin-bottom: 0;
     }
 </style>
