@@ -14,6 +14,7 @@ import AllPosts from './components/AllPosts'
 import EditPost from './components/EditPost'
 import AllCategories from './components/AllCategories'
 import EditCategory from './components/EditCategory'
+import CreateCategory from './components/CreateCategory'
 
 const router = new VueRouter({
     routes: [
@@ -50,6 +51,12 @@ const router = new VueRouter({
         path: '/admin/editcategory/:categoryId/edit',
         name: 'editcategory',
         component: EditCategory,
+        props: true
+      },
+      {
+        path: '/admin/createcategory',
+        name: 'createcategory',
+        component: CreateCategory,
         props: true
       },
     ],

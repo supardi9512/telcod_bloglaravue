@@ -14,6 +14,9 @@
                 <li>
                     <router-link :to="{ name: 'createpost', params: {userId}}"><i class="fa fa-pencil-square-o"></i> <span class="text">NEW POST</span></router-link>
                 </li>
+                <li>
+                    <router-link :to="{ name: 'createcategory', params: {userId}}"><i class="fa fa-pencil-square-o"></i> <span class="text">NEW CATEGORY</span></router-link>
+                </li>
             </ul>
         </div>
     </div>

@@ -9,7 +9,7 @@
         <form class="_bg-form">    
           <div class="form-group">
             <span v-if="errors.title" class="badge badge-danger">{{ errors.title[0] }}</span>     
-            <input type="title" class="form-control" ref="title" id="title" placeholder="Title">
+            <input type="text" class="form-control" ref="title" id="title" placeholder="Title">
           </div> 
           <div class="form-group">
             <span v-if="errors.category_id" class="badge badge-danger">{{ errors.category_id[0] }}</span>     
@@ -31,7 +31,7 @@
               <label for="image" class="custom-file-label">Choose file</label>
             </div>
           </div>
-          <button type="submit" @click.prevent="create" class="btn btn-primary">
+          <button type="submit" @click.prevent="createPost" class="btn btn-primary">
             Submit
           </button>   
         </form><br><br><br>
@@ -58,7 +58,7 @@ export default {
       this.getCategories();
     },
     methods: {
-        create() {
+        createPost() {
             const formData = new FormData();
             formData.append('title', this.$refs.title.value);
             formData.append('body', this.$refs.body.value);
