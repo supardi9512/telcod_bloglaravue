@@ -9,7 +9,7 @@
         <form class="_bg-form">    
           <div class="form-group">
             <span v-if="errors.title" class="badge badge-danger">{{ errors.title[0] }}</span>     
-            <input type="title" class="form-control" v-model="title" ref="title" id="title" placeholder="Title">
+            <input type="text" class="form-control" v-model="title" ref="title" id="title" placeholder="Title">
           </div> 
           <div class="form-group">
             <span v-if="errors.category_id" class="badge badge-danger">{{ errors.category_id[0] }}</span>     

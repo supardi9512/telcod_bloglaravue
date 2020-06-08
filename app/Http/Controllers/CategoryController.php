@@ -57,7 +57,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Category::findOrFail($id);
     }
 
     /**
@@ -69,7 +69,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->save();
+
+        return $category;
     }
 
     /**

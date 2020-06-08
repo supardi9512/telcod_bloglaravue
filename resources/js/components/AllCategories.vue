@@ -14,8 +14,10 @@
                         <tr>
                             <td style="width: 600px;">{{ category.name }}</td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-block btn-primary">Edit</button>
-                                <button type="button" class="btn btn-block btn-danger">Delete</button>
+                                <router-link :to="{name: 'editcategory', params: {categoryId: category.id}}">
+                                    <button type="button" class="btn btn-primary">Edit</button>
+                                </router-link>
+                                <button type="button" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                     </tbody>
