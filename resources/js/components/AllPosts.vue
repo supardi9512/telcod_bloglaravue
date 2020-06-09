@@ -34,17 +34,26 @@
                         </tr>
                     </tbody>
                 </table>
+                <pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="5" @paginate="getPosts()"></pagination>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import pagination from './Pagination.vue'
+
 export default {
+    components: {
+        pagination
+    },
     data: function() {
         return {
             posts: [],
-            successful: false
+            successful: false,
+            pagination: {
+                'current_page': 1
+            }
         }
     },
     created: function() {
@@ -52,10 +61,11 @@ export default {
     },
     methods: {
         getPosts() {
-            axios.get('/api/posts')
+            axios.get('/api/posts?page=' + this.pagination.current_page)
                 .then(response => {
                     console.log(response.data);
-                    this.posts = response.data.data;
+                    this.posts = response.data.data.data;
+                    this.pagination = response.data.pagination;
                 });
         },
         deletePost(id) {

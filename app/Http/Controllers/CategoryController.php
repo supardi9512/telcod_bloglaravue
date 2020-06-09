@@ -14,7 +14,21 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::all();
+        $categories = Category::orderBy('id', 'asc')->latest()->paginate(2);
+        $response = [
+            'pagination' => [
+                'total' => $categories->total(),
+                'per_page' => $categories->perPage(),
+                'current_page' => $categories->currentPage(),
+                'last_page' => $categories->lastPage(),
+                'from' => $categories->firstItem(),
+                'to' => $categories->lastItem()
+            ],
+            'data' => $categories
+        ];
+        return response()->json($response);
+
+        // return Category::all();
     }
 
     /**

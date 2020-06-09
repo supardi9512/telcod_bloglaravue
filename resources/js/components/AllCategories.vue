@@ -26,17 +26,26 @@
                         </tr>
                     </tbody>
                 </table>
+                <pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="5" @paginate="getCategories()"></pagination>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import pagination from './Pagination.vue'
+
 export default {
+    components: {
+        pagination
+    },
     data() {
         return {
             categories: [],
-            successful: false
+            successful: false,
+            pagination: {
+                'current_page': 1
+            }
         }
     },
     created() {
@@ -44,10 +53,11 @@ export default {
     },
     methods: {
         getCategories() {
-            axios.get('/api/categories')
+            axios.get('/api/categories?page=' + this.pagination.current_page)
                 .then(response => {
                     console.log(response.data);
-                    this.categories = response.data;
+                    this.categories = response.data.data.data;
+                    this.pagination = response.data.pagination;
                 })
                 .catch(error => {
                     console.log(error.response.data);
