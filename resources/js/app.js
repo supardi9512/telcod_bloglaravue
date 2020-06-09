@@ -17,6 +17,7 @@ import EditCategory from './components/EditCategory'
 import CreateCategory from './components/CreateCategory'
 import HomepagePosts from './components/HomepagePosts'
 import ReadPost from './components/ReadPost'
+import Menuhomepage from './components/Menuhomepage'
 
 const router = new VueRouter({
     routes: [
@@ -78,7 +79,8 @@ const router = new VueRouter({
 const app = new Vue({
     el: '#app',
     components: {
-        Menuadmin
+        Menuadmin,
+        Menuhomepage
     },
     router
 });
