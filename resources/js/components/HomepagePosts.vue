@@ -20,9 +20,11 @@
                     <div class="card-body">
                         <h6 class="card-title"> {{post.title }}</h6>
                         <a href="#" target="_blank" class="btn btn-light btn-sm float-left"><i class="fa fa-share"></i></a> 
-                        <button type="button" class="btn btn-secondary btn-sm float-right">
-                            Read More..
-                        </button> 
+                        <router-link :to="{name: 'readpost', params: {id: post.id} }">
+                            <button type="button" class="btn btn-secondary btn-sm float-right">
+                                Read More..
+                            </button> 
+                        </router-link>
                     </div>
                 </div>          
             </div>   

@@ -86,7 +86,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        return Post::with('category', 'user')->findOrFail($id);
     }
 
     /**

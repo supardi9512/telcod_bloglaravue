@@ -16,6 +16,7 @@ import AllCategories from './components/AllCategories'
 import EditCategory from './components/EditCategory'
 import CreateCategory from './components/CreateCategory'
 import HomepagePosts from './components/HomepagePosts'
+import ReadPost from './components/ReadPost'
 
 const router = new VueRouter({
     routes: [
@@ -23,6 +24,11 @@ const router = new VueRouter({
         path: '/',
         name: 'homepageposts',
         component: HomepagePosts
+      },
+      {
+        path: '/read/:id',
+        name: 'readpost',
+        component: ReadPost
       },
       {
         path: '/admin/dashboard',
