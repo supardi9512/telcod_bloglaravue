@@ -15,9 +15,15 @@ import EditPost from './components/EditPost'
 import AllCategories from './components/AllCategories'
 import EditCategory from './components/EditCategory'
 import CreateCategory from './components/CreateCategory'
+import HomepagePosts from './components/HomepagePosts'
 
 const router = new VueRouter({
     routes: [
+      {
+        path: '/',
+        name: 'homepageposts',
+        component: HomepagePosts
+      },
       {
         path: '/admin/dashboard',
         name: 'dashboard',

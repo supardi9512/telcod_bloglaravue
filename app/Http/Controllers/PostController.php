@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    public function getHomepagePosts()
+    {
+        $posts = Post::orderBy('id', 'asc')->latest()->get();
+
+        return response()->json($posts);
+    }
+
     public function getCategories()
     {
         return Category::latest()->get();

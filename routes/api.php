@@ -23,3 +23,5 @@ Route::resource('posts', 'PostController');
 Route::get('getCategories', 'PostController@getCategories');
 
 Route::resource('categories', 'CategoryController');
+
+Route::get('getHomepagePosts', 'PostController@getHomepagePosts');
